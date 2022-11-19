@@ -31,7 +31,7 @@ import de.nilsdruyen.compose.pages.chart.Type
 import org.jetbrains.compose.web.dom.Canvas
 import kotlin.random.Random
 
-inline fun <T : Any> jso(): T = js("({})")
+fun <T : Any> jso(): T = js("({})") as T
 
 inline fun <T : Any> jso(builder: T.() -> Unit): T = jso<T>().apply(builder)
 

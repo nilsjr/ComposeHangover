@@ -1,8 +1,75 @@
 [versions]
-
+arrow = "1.1.3"
+buildconfig = "3.1.0"
+compose = "1.3.0-beta01"
+coroutines = "1.6.4"
+detekt = "1.22.0-RC3"
+exposed = "0.41.1"
+gradleVersions = "0.44.0"
+html = "0.8.0"
+koin = "3.2.2"
+kotlin = "1.7.20"
+kover = "0.6.1"
+ktor = "2.1.3"
+serialization = "1.4.1"
+shadow = "7.1.2"
 
 [libraries]
-
+arrow-bom = { module = "io.arrow-kt:arrow-stack", version.ref = "arrow" }
+arrow-core = { module = "io.arrow-kt:arrow-core" }
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+h2 = "com.h2database:h2:2.1.214"
+hikari = "com.zaxxer:HikariCP:5.0.1"
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
+kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-content = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
+ktor-client-js-json = { module = "io.ktor:ktor-client-json-js", version.ref = "ktor" }
+ktor-client-js-serial = { module = "io.ktor:ktor-client-serialization-js", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
+ktor-client-serial = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktor-serial-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
+ktor-server-caching-headers = { module = "io.ktor:ktor-server-caching-headers", version.ref = "ktor" }
+ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor" }
+ktor-server-conditional-headers = { module = "io.ktor:ktor-server-conditional-headers", version.ref = "ktor" }
+ktor-server-content = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-server-default-headers = { module = "io.ktor:ktor-server-default-headers", version.ref = "ktor" }
+ktor-server-html-builder = { module = "io.ktor:ktor-server-html-builder", version.ref = "ktor" }
+ktor-server-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-sessions = { module = "io.ktor:ktor-server-sessions", version.ref = "ktor" }
+ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
+logback = "ch.qos.logback:logback-classic:1.4.4"
+postgres = "org.postgresql:postgresql:42.5.0"
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
+serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
 [bundles]
+exposed = ["exposed-core", "exposed-dao", "exposed-jdbc"]
+ktor-server = ["ktor-server-core", "ktor-server-auth", "ktor-server-netty", "ktor-server-html-builder", "ktor-server-caching-headers", "ktor-server-conditional-headers", "ktor-server-compression", "ktor-server-default-headers", "ktor-server-content", "ktor-server-logging", "ktor-server-status-pages", "ktor-server-sessions"]
+ktor-client = ["ktor-client-core", "ktor-client-logging", "ktor-client-content", "ktor-client-resources"]
+persistence = ["postgres", "h2", "hikari"]
 
+[plugins]
+buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersions" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+kotlin-java = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }

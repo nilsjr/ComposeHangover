@@ -15,4 +15,4 @@ interface Type {
     }
 }
 
-inline fun Type(value: String) = value.unsafeCast<Type>()
+fun Type(value: String) = value.unsafeCast<Type>()
