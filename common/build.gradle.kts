@@ -9,6 +9,19 @@ plugins {
 group = "de.nilsdruyen.compose"
 version = "1.0-SNAPSHOT"
 
+android {
+    namespace = "de.nilsdruyen.compose.common"
+    compileSdk = 33
+    defaultConfig {
+        minSdk = 24
+        targetSdk = 33
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
 kotlin {
     android()
     jvm("desktop") {

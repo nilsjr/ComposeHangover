@@ -7,14 +7,13 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
-rootProject.name = "ComposePartyHangover"
+rootProject.name = "ComposeHangover"
 
 include(":android", ":desktop", ":common", ":web")
 
