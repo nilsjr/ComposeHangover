@@ -43,8 +43,8 @@ fun Headers.header(flag: String): String = this[flag] ?: "empty"
 
 @SuppressWarnings("LongMethod")
 fun Application.module() {
-    val _color: MutableStateFlow<String> = MutableStateFlow("FFFFFF")
-    val color: StateFlow<String> = _color.asStateFlow()
+    val mutableColor: MutableStateFlow<String> = MutableStateFlow("FFFFFF")
+    val color: StateFlow<String> = mutableColor.asStateFlow()
 
     install(CallLogging) {
         level = Level.INFO
@@ -74,7 +74,7 @@ fun Application.module() {
         }
         post("/color/{value}") {
             val colorParam = call.parameters["value"].toString()
-            _color.value = colorParam
+            mutableColor.value = colorParam
             call.respond(HttpStatusCode.OK)
         }
         webSocket("/design") {

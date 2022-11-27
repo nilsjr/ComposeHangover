@@ -7,5 +7,15 @@ plugins {
     id("com.github.ben-manes.versions") version "0.44.0"
 }
 
-group "de.nilsdruyen.compose"
-version "0.0.1"
+subprojects {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions {
+            val arguments = listOf(
+                "-progressive",
+                "-Xopt-in=kotlin.RequiresOptIn"
+            )
+            freeCompilerArgs = freeCompilerArgs + arguments
+            jvmTarget = "11"
+        }
+    }
+}

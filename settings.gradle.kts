@@ -15,6 +15,13 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ComposeHangover"
 
-include(":android", ":desktop", ":common", ":web", ":backend")
+include(
+    ":android",
+    ":desktop",
+    ":common",
+    ":web",
+    ":backend"
+)
 
 enableFeaturePreview("VERSION_CATALOGS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

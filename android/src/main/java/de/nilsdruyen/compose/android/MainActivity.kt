@@ -1,6 +1,6 @@
 package de.nilsdruyen.compose.android
 
-import de.nilsdruyen.compose.common.App
+import de.nilsdruyen.compose.common.ui.App
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
