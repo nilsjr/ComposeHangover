@@ -37,6 +37,7 @@ ktor-client-js-json = { module = "io.ktor:ktor-client-json-js", version.ref = "k
 ktor-client-js-serial = { module = "io.ktor:ktor-client-serialization-js", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-serial = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
 ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
 ktor-serial-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }

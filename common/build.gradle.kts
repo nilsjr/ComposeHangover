@@ -31,12 +31,14 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-
+                implementation(libs.ktor.client.okhttp)
             }
         }
         val desktopMain by getting {
             dependencies {
                 api(compose.preview)
+
+                implementation(libs.ktor.client.cio)
             }
         }
         val jsMain by getting {

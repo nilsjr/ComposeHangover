@@ -8,7 +8,6 @@ plugins {
 group = "de.nilsdruyen.compose"
 version = "1.0-SNAPSHOT"
 
-
 kotlin {
     jvm {
         compilations.all {
