@@ -5,6 +5,7 @@ plugins {
     id("com.android.library") version "7.3.1" apply false
     id("org.jetbrains.compose") version "1.3.0-beta03" apply false
     id("com.github.ben-manes.versions") version "0.44.0"
+    id("com.rickclephas.kmp.nativecoroutines") version "0.13.1" apply false
 }
 
 subprojects {
@@ -18,4 +19,9 @@ subprojects {
             jvmTarget = "11"
         }
     }
+}
+
+tasks.register("runAll") {
+    dependsOn(":backend:run", ":web:browserDevelopmentRun", ":desktop:run")
+//    dependsOn(":backend:run", ":web:browserDevelopmentRun", ":android:assembleDebug", ":desktop:run")
 }

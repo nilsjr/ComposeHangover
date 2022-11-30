@@ -24,7 +24,7 @@ object ClientApi {
 
     fun observeColor(): Flow<String> {
         return callbackFlow {
-            client.webSocket(method = HttpMethod.Get, host = "localhost", port = 8080, path = "/design") {
+            client.webSocket(method = HttpMethod.Get, host = "192.168.178.138", port = 8080, path = "/design") {
                 incoming.consumeAsFlow().collect {
                     if (it is Frame.Text) {
                         trySend(it.readText())

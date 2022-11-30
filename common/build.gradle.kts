@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose")
     id("com.android.library")
+    id("com.rickclephas.kmp.nativecoroutines")
 }
 
 group = "de.nilsdruyen.compose"
@@ -18,13 +18,18 @@ kotlin {
         browser()
         binaries.executable()
     }
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "ComposeHangoverCore"
+        }
+    }
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.websockets)
             }
@@ -36,14 +41,24 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                api(compose.preview)
-
                 implementation(libs.ktor.client.cio)
+            }
+        }
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
             }
         }
         val jsMain by getting {
             dependencies {
-                implementation(compose.web.core)
+                implementation(libs.ktor.client.js)
             }
         }
     }
