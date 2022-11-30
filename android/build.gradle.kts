@@ -26,6 +26,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
+    implementation(projects.common)
+
+
     implementation("androidx.activity:activity-compose:1.7.0-alpha02")
+
+    implementation(compose.runtime)
+    implementation(compose.foundation)
+    implementation(compose.ui)
+    implementation(compose.material)
 }
