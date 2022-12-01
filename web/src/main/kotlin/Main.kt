@@ -25,7 +25,7 @@ import org.jetbrains.compose.web.renderComposableInBody
 
 fun main() {
     renderComposableInBody {
-        var color by remember { mutableStateOf("empty") }
+        var color by remember { mutableStateOf("ffffff") }
 
         LaunchedEffect(Unit) {
             ClientApi.observeColor().collect {
@@ -40,7 +40,7 @@ fun main() {
             style {
                 width(100.percent)
                 height(100.percent)
-                background("#ff33ff")
+                background("#$color")
             }
         }) {
             H1 {

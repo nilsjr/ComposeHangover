@@ -1,5 +1,4 @@
 plugins {
-    id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
 }
@@ -15,24 +14,35 @@ android {
         versionName = "1.0-SNAPSHOT"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
 }
 
 dependencies {
     implementation(projects.common)
 
+    with(libs.androidx) {
+        implementation(compose.activity)
+        implementation(compose.ui)
+        implementation(compose.material3)
+        implementation(compose.material.icons)
+        implementation(compose.animation)
+        implementation(compose.animation.graphics)
+        implementation(compose.constraint)
 
-    implementation("androidx.activity:activity-compose:1.7.0-alpha02")
-
-    implementation(compose.runtime)
-    implementation(compose.foundation)
-    implementation(compose.ui)
-    implementation(compose.material)
+        debugImplementation(compose.ui.tooling)
+        implementation(compose.ui.tooling.preview)
+    }
 }
