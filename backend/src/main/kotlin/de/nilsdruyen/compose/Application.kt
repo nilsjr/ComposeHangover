@@ -1,38 +1,25 @@
 package de.nilsdruyen.compose
 
 import de.nilsdruyen.compose.html.dashboard
-import io.ktor.http.Headers
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.Application
-import io.ktor.server.application.call
-import io.ktor.server.application.install
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.html.respondHtml
-import io.ktor.server.http.content.resources
-import io.ktor.server.http.content.static
-import io.ktor.server.netty.Netty
-import io.ktor.server.plugins.callloging.CallLogging
-import io.ktor.server.plugins.compression.Compression
-import io.ktor.server.plugins.compression.deflate
-import io.ktor.server.plugins.compression.gzip
-import io.ktor.server.plugins.compression.minimumSize
-import io.ktor.server.plugins.defaultheaders.DefaultHeaders
-import io.ktor.server.request.path
-import io.ktor.server.response.respond
-import io.ktor.server.routing.get
-import io.ktor.server.routing.post
-import io.ktor.server.routing.routing
-import io.ktor.server.websocket.WebSockets
-import io.ktor.server.websocket.webSocket
-import io.ktor.websocket.DefaultWebSocketSession
-import io.ktor.websocket.Frame
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.html.*
+import io.ktor.server.http.content.*
+import io.ktor.server.netty.*
+import io.ktor.server.plugins.callloging.*
+import io.ktor.server.plugins.compression.*
+import io.ktor.server.plugins.defaultheaders.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import io.ktor.server.websocket.*
+import io.ktor.websocket.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.html.HTML
 import org.slf4j.event.Level
-import java.util.Collections
-import java.util.concurrent.atomic.AtomicInteger
 
 fun main() {
     val port = System.getenv("PORT")?.toInt() ?: 8080
@@ -79,6 +66,7 @@ fun Application.module() {
         }
         webSocket("/design") {
             color.collect { color ->
+                println("send color: $color")
                 outgoing.send(Frame.Text(color))
             }
         }

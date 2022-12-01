@@ -12,18 +12,22 @@ struct ContentView: View {
     @StateObject var model = HangoverViewModel()
 
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-            Text(self.model.color)
+        ZStack {
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundColor(.accentColor)
+                Text("Hello, world!")
+                Text(self.model.color)
+            }
+            .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(hex: model.color))
-        .padding()
         .task {
             await model.observe()
         }
+
     }
 }
 
