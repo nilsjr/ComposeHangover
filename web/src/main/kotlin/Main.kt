@@ -4,14 +4,14 @@
  */
 
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import de.nilsdruyen.compose.SampleList
 import de.nilsdruyen.compose.WebAppStyle
-import de.nilsdruyen.compose.common.api.ClientApi
-import kotlinx.coroutines.flow.collect
+import de.nilsdruyen.compose.common.HangoverViewModel
+import de.nilsdruyen.compose.common.data.HangoverRepositoryImpl
+import de.nilsdruyen.compose.common.entities.Color
+import kotlinx.coroutines.MainScope
 import org.jetbrains.compose.web.css.Style
 import org.jetbrains.compose.web.css.background
 import org.jetbrains.compose.web.css.height
@@ -24,14 +24,19 @@ import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposableInBody
 
 fun main() {
+    val scope = MainScope()
+    val viewModel = HangoverViewModel(scope, HangoverRepositoryImpl())
+
     renderComposableInBody {
-        var color by remember { mutableStateOf("ffffff") }
+        val state = viewModel.state.collectAsState()
+        val primaryColor = remember {
+            derivedStateOf {
+                state.value.theme.colors[Color.PRIMARY]
+            }
+        }
 
         LaunchedEffect(Unit) {
-            ClientApi.observeColor().collect {
-                println("update color: $it")
-                color = it
-            }
+            viewModel.observe()
         }
 
         Style(WebAppStyle)
@@ -40,14 +45,14 @@ fun main() {
             style {
                 width(100.percent)
                 height(100.percent)
-                background("#$color")
+                background("#$primaryColor")
             }
         }) {
             H1 {
                 Text("Welcome to compose hangover")
             }
             H2 {
-                Text("color: $color")
+                Text("color: $primaryColor")
             }
         }
     }
