@@ -35,9 +35,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val state by viewModel.state.collectAsState()
             ComposePartyTheme(state.theme) {
-                App(state) {
-                    viewModel.observe()
-                }
+                App(
+                    state = state,
+                    connect = { viewModel.observe() },
+                    disconnect = { viewModel.disconnect() },
+                )
             }
         }
     }
@@ -45,12 +47,12 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App(state: HangoverState, observeTheme: () -> Unit) {
+fun App(state: HangoverState, connect: () -> Unit, disconnect: () -> Unit) {
 //    val platformName = getPlatformName()
 //    var text by remember { mutableStateOf("Hello, World!") }
 
     LaunchedEffect(Unit) {
-        observeTheme()
+        connect()
     }
 
     Scaffold(
@@ -62,7 +64,9 @@ fun App(state: HangoverState, observeTheme: () -> Unit) {
                 actions = {
                     Switch(checked = state.inSync, onCheckedChange = {
                         if (it) {
-                            observeTheme()
+                            connect()
+                        } else {
+                            disconnect()
                         }
                     })
                 }
@@ -75,7 +79,7 @@ fun App(state: HangoverState, observeTheme: () -> Unit) {
                 .padding(it)
         ) {
             Text(
-                "Color: ${state.theme.colors[de.nilsdruyen.compose.common.model.Color.PRIMARY]}",
+                "Color: ${state.theme.colors[de.nilsdruyen.compose.common.entities.Color.PRIMARY]}",
                 modifier = Modifier.padding(16.dp)
             )
             Text(
@@ -84,7 +88,7 @@ fun App(state: HangoverState, observeTheme: () -> Unit) {
             )
             Text(
                 text = "Colored Text",
-                color = state.theme.colors[de.nilsdruyen.compose.common.model.Color.PRIMARY]?.getColor() ?: Color.Gray,
+                color = state.theme.colors[de.nilsdruyen.compose.common.entities.Color.PRIMARY]?.getColor() ?: Color.Gray,
                 modifier = Modifier.padding(16.dp),
             )
         }

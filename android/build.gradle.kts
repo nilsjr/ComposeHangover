@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.common)
+    implementation(projects.commonClient)
 
     with(libs.androidx) {
         implementation(compose.activity)

@@ -18,6 +18,8 @@ application {
     mainClass.set(appName)
 }
 dependencies {
+    implementation(projects.commonEntity)
+
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.websockets)

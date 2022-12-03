@@ -18,7 +18,8 @@ rootProject.name = "ComposeHangover"
 include(
     ":android",
     ":desktop",
-    ":common",
+    ":common-client",
+    ":common-entity",
     ":web",
     ":backend"
 )

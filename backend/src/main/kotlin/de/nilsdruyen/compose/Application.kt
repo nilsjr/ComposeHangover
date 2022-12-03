@@ -2,9 +2,11 @@ package de.nilsdruyen.compose
 
 import de.nilsdruyen.compose.data.ThemeRepository
 import de.nilsdruyen.compose.data.ThemeRepositoryImpl
+import de.nilsdruyen.compose.entities.UpdateThemeEntity
 import de.nilsdruyen.compose.html.dashboard
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.html.*
@@ -12,6 +14,7 @@ import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.compression.*
+import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -56,6 +59,14 @@ fun Application.module() {
             minimumSize(1024) // condition
         }
     }
+    install(ContentNegotiation) {
+        json(
+            Json {
+                prettyPrint = true
+                isLenient = true
+            }
+        )
+    }
     install(WebSockets) {
         pingPeriod = Duration.ofSeconds(15)
         timeout = Duration.ofSeconds(15)
@@ -81,12 +92,13 @@ fun Application.module() {
             repository.setColor(colorParam)
             call.respond(HttpStatusCode.OK)
         }
-//        webSocket("/design") {
-//            repository.observeTheme().collect { color ->
-//                println("send color: $color")
-//                outgoing.send(Frame.Text(color))
-//            }
-//        }
+        post("/theme") {
+            val theme = call.receive<UpdateThemeEntity>()
+            repository.updateTheme(theme)
+            val colorParam = call.parameters["value"].toString()
+            repository.setColor(colorParam)
+            call.respond(HttpStatusCode.OK)
+        }
         webSocket("/theme") {
             repository.observeTheme().collect { theme ->
                 sendSerialized(theme)

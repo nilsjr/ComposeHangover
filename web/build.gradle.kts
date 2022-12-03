@@ -13,7 +13,7 @@ kotlin {
 }
 
 dependencies {
-    implementation(projects.common)
+    implementation(projects.commonClient)
 
     implementation(compose.runtime)
     implementation(compose.web.core)

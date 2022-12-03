@@ -3,7 +3,6 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("com.rickclephas.kmp.nativecoroutines")
-    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "de.nilsdruyen.compose"
@@ -32,6 +31,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(projects.commonEntity)
                 implementation(libs.coroutines)
 
                 implementation(libs.ktor.serial.json)
@@ -80,5 +80,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        buildConfig = false
     }
 }

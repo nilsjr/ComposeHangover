@@ -1,11 +1,13 @@
 package de.nilsdruyen.compose.common
 
-import de.nilsdruyen.compose.common.api.entities.ThemeEntity
+import de.nilsdruyen.compose.common.entities.ThemeEntity
 import de.nilsdruyen.compose.common.data.HangoverRepository
-import de.nilsdruyen.compose.common.model.Color
+import de.nilsdruyen.compose.common.entities.Color
 import de.nilsdruyen.compose.common.model.HangoverState
 import de.nilsdruyen.compose.common.model.Theme
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,9 +21,12 @@ class HangoverViewModel(
     private val _state: MutableStateFlow<HangoverState> = MutableStateFlow(HangoverState())
     val state: StateFlow<HangoverState> = _state.asStateFlow()
 
+    private var themeJob: Job? = null
+
     fun observe() {
         _state.value = state.value.copy(inSync = true)
-        scope.launch {
+        themeJob?.cancel()
+        themeJob = scope.launch {
             try {
                 hangoverRepository.observeStyle().collect {
                     _state.value = state.value.copy(theme = it.map())
@@ -33,21 +38,18 @@ class HangoverViewModel(
             }
         }
     }
+
+    fun disconnect() {
+        scope.launch {
+            themeJob?.cancelAndJoin()
+            themeJob = null
+            _state.value = state.value.copy(inSync = false)
+        }
+    }
 }
 
 fun ThemeEntity.map(): Theme {
     return Theme(
-        colors = colors.mapKeys {
-            it.key.toColor()
-        }
+        colors = colors,
     )
-}
-
-fun String.toColor(): Color {
-    return when (this) {
-        "primary" -> Color.PRIMARY
-        "secondary" -> Color.SECONDARY
-        "tertiary" -> Color.TERTIARY
-        else -> error("not matching")
-    }
 }

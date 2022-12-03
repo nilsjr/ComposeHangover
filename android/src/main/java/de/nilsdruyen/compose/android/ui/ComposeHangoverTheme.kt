@@ -7,8 +7,6 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -16,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.nilsdruyen.compose.common.model.Theme
-import de.nilsdruyen.compose.common.model.Color as HangoverColor
+import de.nilsdruyen.compose.common.entities.Color as HangoverColor
 
 @Composable
 fun ComposePartyTheme(theme: Theme, content: @Composable () -> Unit) {
@@ -60,12 +58,10 @@ private fun Map<HangoverColor, String>.mapToScheme(): ColorScheme {
     )
 }
 
-fun String.getColor(): Color {
-    return try {
-        Color(android.graphics.Color.parseColor("#$this"))
-    } catch (e: Exception) {
-        Color.White
-    }
+fun String.getColor(): Color = try {
+    Color(android.graphics.Color.parseColor("#$this"))
+} catch (e: Exception) {
+    Color.White
 }
 
 fun Color.toHexCode(): String {
