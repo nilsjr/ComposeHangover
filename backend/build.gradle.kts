@@ -1,6 +1,8 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     application
     kotlin("jvm")
+    alias(libs.plugins.kotlin.serialization)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -24,4 +26,5 @@ dependencies {
     implementation(libs.ktor.server.content)
     implementation(libs.ktor.server.default.headers)
     implementation(libs.ktor.server.logging)
+    implementation(libs.ktor.serial.json)
 }

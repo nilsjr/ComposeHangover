@@ -1,7 +1,9 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("com.rickclephas.kmp.nativecoroutines")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "de.nilsdruyen.compose"
@@ -30,7 +32,11 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(libs.coroutines)
+
+                implementation(libs.ktor.serial.json)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.serial)
                 implementation(libs.ktor.client.websockets)
             }
         }

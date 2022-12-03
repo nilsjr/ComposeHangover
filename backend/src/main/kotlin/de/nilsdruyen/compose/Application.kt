@@ -1,7 +1,10 @@
 package de.nilsdruyen.compose
 
+import de.nilsdruyen.compose.data.ThemeRepository
+import de.nilsdruyen.compose.data.ThemeRepositoryImpl
 import de.nilsdruyen.compose.html.dashboard
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.html.*
@@ -19,7 +22,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.html.HTML
+import kotlinx.html.InputType
+import kotlinx.serialization.json.Json
 import org.slf4j.event.Level
+import java.time.Duration
+import java.util.zip.Deflater
 
 fun main() {
     val port = System.getenv("PORT")?.toInt() ?: 8080
@@ -30,8 +37,7 @@ fun Headers.header(flag: String): String = this[flag] ?: "empty"
 
 @SuppressWarnings("LongMethod")
 fun Application.module() {
-    val mutableColor: MutableStateFlow<String> = MutableStateFlow("FFFFFF")
-    val color: StateFlow<String> = mutableColor.asStateFlow()
+    val repository: ThemeRepository = ThemeRepositoryImpl()
 
     install(CallLogging) {
         level = Level.INFO
@@ -50,8 +56,19 @@ fun Application.module() {
             minimumSize(1024) // condition
         }
     }
-    install(WebSockets)
-
+    install(WebSockets) {
+        pingPeriod = Duration.ofSeconds(15)
+        timeout = Duration.ofSeconds(15)
+        maxFrameSize = Long.MAX_VALUE
+        masking = false
+        extensions {
+            install(WebSocketDeflateExtension) {
+                compressionLevel = Deflater.DEFAULT_COMPRESSION
+                compressIfBiggerThan(bytes = 4 * 1024)
+            }
+        }
+        contentConverter = KotlinxWebsocketSerializationConverter(Json)
+    }
     routing {
         static("static") {
             resources()
@@ -61,13 +78,18 @@ fun Application.module() {
         }
         post("/color/{value}") {
             val colorParam = call.parameters["value"].toString()
-            mutableColor.value = colorParam
+            repository.setColor(colorParam)
             call.respond(HttpStatusCode.OK)
         }
-        webSocket("/design") {
-            color.collect { color ->
-                println("send color: $color")
-                outgoing.send(Frame.Text(color))
+//        webSocket("/design") {
+//            repository.observeTheme().collect { color ->
+//                println("send color: $color")
+//                outgoing.send(Frame.Text(color))
+//            }
+//        }
+        webSocket("/theme") {
+            repository.observeTheme().collect { theme ->
+                sendSerialized(theme)
             }
         }
     }
