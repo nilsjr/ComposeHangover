@@ -3,6 +3,8 @@ plugins {
     application
     kotlin("jvm")
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.cloud.tools.appengine")
+    id("com.github.johnrengelman.shadow")
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -29,4 +31,16 @@ dependencies {
     implementation(libs.ktor.server.default.headers)
     implementation(libs.ktor.server.logging)
     implementation(libs.ktor.serial.json)
+}
+
+appengine {
+    stage {
+//        setArtifact("build/libs/${project.name}-all.jar")
+        setArtifact(tasks.named("shadowJar").flatMap { (it as Jar).archiveFile })
+    }
+    deploy {
+        projectId = "composehangover"
+        version = "GCLOUD_CONFIG"
+        projectId = "GCLOUD_CONFIG"
+    }
 }
