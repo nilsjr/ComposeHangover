@@ -25,13 +25,16 @@ kotlin {
     }
 }
 
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "ComposeHangover"
-            packageVersion = "1.0.0"
+compose {
+    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.0-alpha02")
+    desktop {
+        application {
+            mainClass = "MainKt"
+            nativeDistributions {
+                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+                packageName = "ComposeHangover"
+                packageVersion = "1.0.0"
+            }
         }
     }
 }
