@@ -2,7 +2,6 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("com.rickclephas.kmp.nativecoroutines")
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -26,7 +25,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "ComposeHangoverCore"
+            baseName = "ComposeHangoverCoreEntity"
         }
     }
     sourceSets {

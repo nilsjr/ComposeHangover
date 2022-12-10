@@ -12,13 +12,19 @@ import KMPNativeCoroutinesAsync
 @MainActor
 final class HangoverViewModel: ObservableObject {
 
-    @Published var color: String = "empty"
+    @Published var theme: Common_entityThemeEntity = Common_entityThemeEntity(colors: [:], shapes: [:], typography: [:])
+
+    private let repository: HangoverRepository
+
+    init(repository: HangoverRepository) {
+        self.repository = repository
+    }
 
     func observe() async {
         do {
-            let stream = asyncStream(for: ClientApi().observeColorNative())
+            let stream = asyncStream(for: repository.observeStyleNative())
             for try await data in stream {
-                self.color = data
+                self.theme = data
             }
         } catch {
             print("Failed with error: \(error)")

@@ -6,24 +6,26 @@
 //
 
 import SwiftUI
+import ComposeHangoverCore
 
 struct ContentView: View {
 
-    @StateObject var model = HangoverViewModel()
+    @StateObject var model = HangoverViewModel(repository: HangoverRepositoryImpl())
 
     var body: some View {
+        let color: String = self.model.theme.map().colors[Common_entityColor.primary] ?? "#ffffff"
         ZStack {
             VStack {
                 Image(systemName: "globe")
                     .imageScale(.large)
                     .foregroundColor(.accentColor)
                 Text("Hello, world!")
-                Text(self.model.color)
+                Text(color)
             }
             .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(hex: model.color))
+        .background(Color(hex: color))
         .task {
             await model.observe()
         }
