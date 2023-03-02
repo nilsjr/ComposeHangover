@@ -1,4 +1,4 @@
-package de.nilsdruyen.compose.desktop
+package de.nilsdruyen.compose.desktop.components
 
 import androidx.compose.animation.core.EaseInOut
 import androidx.compose.animation.core.animateDpAsState

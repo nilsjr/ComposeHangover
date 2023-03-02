@@ -43,11 +43,13 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.ktor.client.okhttp)
+                implementation(libs.coroutines.android)
             }
         }
         val desktopMain by getting {
             dependencies {
                 implementation(libs.ktor.client.cio)
+                implementation(libs.coroutines.swing)
             }
         }
         val iosX64Main by getting

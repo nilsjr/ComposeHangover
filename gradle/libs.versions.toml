@@ -27,6 +27,8 @@ shadow = "7.1.2"
 arrow-bom = { module = "io.arrow-kt:arrow-stack", version.ref = "arrow" }
 arrow-core = { module = "io.arrow-kt:arrow-core" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }

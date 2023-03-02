@@ -9,11 +9,14 @@ group = "de.nilsdruyen.compose"
 version = "1.0-SNAPSHOT"
 
 kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of("11"))
+    }
     jvm {
+        withJava()
         compilations.all {
             kotlinOptions.jvmTarget = "11"
         }
-        withJava()
     }
     sourceSets {
         val jvmMain by getting {
@@ -26,6 +29,7 @@ kotlin {
 }
 
 compose {
+    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.3")
     desktop {
         application {
             mainClass = "MainKt"
@@ -36,5 +40,4 @@ compose {
             }
         }
     }
-    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.3")
 }
