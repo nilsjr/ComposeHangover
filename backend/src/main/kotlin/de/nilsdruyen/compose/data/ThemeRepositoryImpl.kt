@@ -12,33 +12,33 @@ import kotlinx.coroutines.flow.asStateFlow
 class ThemeRepositoryImpl : ThemeRepository {
 
     private val mutableTheme = MutableStateFlow(DefaultTheme)
-    private val theme: StateFlow<ThemeEntity> = mutableTheme.asStateFlow()
+    private val localTheme: StateFlow<ThemeEntity> = mutableTheme.asStateFlow()
 
-    override fun observeTheme(): Flow<ThemeEntity> = theme
+    override fun observeTheme(): Flow<ThemeEntity> = localTheme
 
     override fun setColor(hex: String) {
-        val colors = theme.value.colors.toMutableMap()
+        val colors = localTheme.value.colors.toMutableMap()
         colors[Color.PRIMARY] = hex
-        mutableTheme.value = theme.value.copy(
+        mutableTheme.value = localTheme.value.copy(
             colors = colors
         )
     }
 
-    override fun updateTheme(updateThemeEntity: UpdateThemeEntity) {
-        val (colors, _, _) = theme.value
+    override fun updateTheme(theme: UpdateThemeEntity) {
+        val (colors, _, _) = localTheme.value
 
         val mutableColors = colors.toMutableMap()
-        updateThemeEntity.colors?.let {
+        theme.colors?.let {
             mutableColors.putAll(it)
         }
-        updateThemeEntity.shapes?.let {
+        theme.shapes?.let {
 
         }
-        updateThemeEntity.typography?.let {
+        theme.typography?.let {
 
         }
 
-        mutableTheme.value = theme.value.copy(
+        mutableTheme.value = localTheme.value.copy(
             colors = mutableColors,
         )
     }
