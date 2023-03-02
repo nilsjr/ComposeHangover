@@ -26,7 +26,6 @@ kotlin {
 }
 
 compose {
-    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.0-alpha02")
     desktop {
         application {
             mainClass = "MainKt"
@@ -37,4 +36,5 @@ compose {
             }
         }
     }
+    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.3")
 }

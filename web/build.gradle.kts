@@ -13,7 +13,7 @@ kotlin {
 }
 
 compose {
-    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.0-alpha02")
+    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.3")
 }
 
 dependencies {
