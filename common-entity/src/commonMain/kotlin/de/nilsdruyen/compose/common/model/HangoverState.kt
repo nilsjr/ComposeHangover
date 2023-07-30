@@ -5,4 +5,5 @@ data class HangoverState(
     val theme: Theme = Theme(),
     val events: Set<String> = emptySet(),
     val consumed: Set<String> = emptySet(),
+    val serverIsRunning: Boolean = false,
 )

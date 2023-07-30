@@ -28,6 +28,16 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompilerJetpack.get()
     }
+    packaging {
+        resources {
+            excludes += setOf(
+                "/META-INF/{AL2.0,LGPL2.1}",
+                "META-INF/LICENSE*",
+                "META-INF/INDEX.LIST",
+                "META-INF/io.netty.versions.properties",
+            )
+        }
+    }
 }
 
 dependencies {
@@ -46,4 +56,7 @@ dependencies {
         debugImplementation(compose.ui.tooling)
         implementation(compose.ui.tooling.preview)
     }
+
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.netty)
 }

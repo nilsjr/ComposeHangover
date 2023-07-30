@@ -78,6 +78,14 @@ class HangoverViewModel(
         _state.value = state.value.copy(events = currentEvents + event)
         scope.launch { actionChannel.send(event) }
     }
+
+    fun startServer() {
+        _state.value = state.value.copy(serverIsRunning = true)
+    }
+
+    fun stopServer() {
+        _state.value = state.value.copy(serverIsRunning = true)
+    }
 }
 
 fun ThemeEntity.map(): Theme {
