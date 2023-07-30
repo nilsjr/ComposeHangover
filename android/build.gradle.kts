@@ -5,17 +5,17 @@ plugins {
 
 android {
     namespace = "de.nilsdruyen.compose.android"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "de.nilsdruyen.compose.android"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0-SNAPSHOT"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildTypes {
         getByName("release") {
@@ -26,7 +26,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.composeCompilerJetpack.get()
     }
 }
 
@@ -34,6 +34,7 @@ dependencies {
     implementation(projects.commonClient)
 
     with(libs.androidx) {
+        implementation(platform(compose.bom))
         implementation(compose.activity)
         implementation(compose.ui)
         implementation(compose.material3)

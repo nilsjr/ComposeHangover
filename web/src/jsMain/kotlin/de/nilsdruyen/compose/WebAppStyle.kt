@@ -1,9 +1,7 @@
 package de.nilsdruyen.compose
 
-import org.jetbrains.compose.web.css.Color
 import org.jetbrains.compose.web.css.StyleSheet
 import org.jetbrains.compose.web.css.background
-import org.jetbrains.compose.web.css.color
 import org.jetbrains.compose.web.css.height
 import org.jetbrains.compose.web.css.margin
 import org.jetbrains.compose.web.css.percent

@@ -1,13 +1,15 @@
 package de.nilsdruyen.compose.common
 
-import de.nilsdruyen.compose.common.entities.ThemeEntity
 import de.nilsdruyen.compose.common.data.HangoverRepository
-import de.nilsdruyen.compose.common.entities.Color
+import de.nilsdruyen.compose.common.entities.ThemeEntity
 import de.nilsdruyen.compose.common.model.HangoverState
 import de.nilsdruyen.compose.common.model.Theme
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +25,10 @@ class HangoverViewModel(
 
     private var themeJob: Job? = null
 
+    private val actionChannel = Channel<String>(Channel.BUFFERED)
+//    private val queue: LinkedList<String> = LinkedList()
+
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     fun observe() {
         _state.value = state.value.copy(inSync = true)
         themeJob?.cancel()
@@ -37,6 +43,25 @@ class HangoverViewModel(
                 _state.value = state.value.copy(inSync = false)
             }
         }
+
+//        scope.launch {
+//            actionChannel.consumeAsFlow()
+//                .scan(mutableSetOf()) { actions: MutableSet<String>, new: String ->
+//                    actions += new
+//                    // TODO: merge existing actions with the same productId
+//                    actions
+//                }
+//                .flatMapLatest {
+//                    flow { it.forEach { emit(it) } }
+//                }
+//                .debounce(1500)
+//                .distinctUntilChanged()
+//                .collect {
+//                    val currentEvents = state.value.consumed
+//                    _state.value = state.value.copy(consumed = currentEvents + "event${currentEvents.size}")
+//                    println("pending action $it")
+//                }
+//        }
     }
 
     fun disconnect() {
@@ -45,6 +70,13 @@ class HangoverViewModel(
             themeJob = null
             _state.value = state.value.copy(inSync = false)
         }
+    }
+
+    fun add() {
+        val currentEvents = state.value.events
+        val event = "event${currentEvents.size}"
+        _state.value = state.value.copy(events = currentEvents + event)
+        scope.launch { actionChannel.send(event) }
     }
 }
 

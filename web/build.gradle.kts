@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("js")
+    kotlin("multiplatform")
     id("org.jetbrains.compose")
 }
 
@@ -10,19 +10,23 @@ kotlin {
         browser()
         binaries.executable()
     }
+
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                implementation(projects.commonClient)
+
+                implementation(compose.runtime)
+                implementation(compose.html.core)
+
+                implementation(npm("chart.js", "3.9.1", generateExternals = false))
+            }
+        }
+    }
 }
 
 compose {
-    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.3")
-}
-
-dependencies {
-    implementation(projects.commonClient)
-
-    implementation(compose.runtime)
-    implementation(compose.web.core)
-
-    implementation(npm("chart.js", "3.9.1", generateExternals = false))
+    kotlinCompilerPlugin.set("1.5.0")
 }
 
 tasks.withType<KotlinCompile>().configureEach {

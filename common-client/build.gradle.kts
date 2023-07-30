@@ -10,7 +10,7 @@ group = "de.nilsdruyen.compose"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-    android()
+    androidTarget()
     jvm("desktop") {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
@@ -75,14 +75,14 @@ kotlin {
 
 android {
     namespace = "de.nilsdruyen.compose.common"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         buildConfig = false

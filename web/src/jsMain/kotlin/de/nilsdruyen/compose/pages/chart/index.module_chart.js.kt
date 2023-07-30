@@ -9,11 +9,14 @@
 @file:JsModule("chart.js")
 @file:JsNonModule
 
-import Chart.*
+import Chart.ChartDataSets
+import Chart.ChartScales
+import Chart.PluginServiceGlobalRegistration
 import de.nilsdruyen.compose.pages.chart.Type
-import org.jetbrains.compose.web.css.*
-import org.w3c.dom.*
-import org.w3c.dom.events.*
+import org.w3c.dom.CanvasRenderingContext2D
+import org.w3c.dom.HTMLCanvasElement
+import org.w3c.dom.events.Event
+import org.w3c.dom.events.MouseEvent
 import kotlin.js.Json
 
 external val ArcElement: dynamic = definedExternally
