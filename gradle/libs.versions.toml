@@ -1,22 +1,22 @@
 [versions]
-arrow = "1.2.0"
+arrow = "1.2.1"
 buildconfig = "4.1.2"
-composeBom = "2023.07.00-alpha02"
-composeCompiler = "1.4.3"
-composeCompilerJetpack = "1.5.1"
-composeConstraintLayout = "1.1.0-alpha11"
-composeMultiplatform = "1.5.0-beta01"
+composeBom = "2023.10.00-alpha01"
+composeCompiler = "1.5.1"
+composeCompilerJetpack = "1.5.3"
+composeConstraintLayout = "1.1.0-alpha12"
+composeMultiplatform = "1.5.1"
 coroutines = "1.7.3"
-detekt = "1.23.0"
+detekt = "1.23.1"
 exposed = "0.41.1"
-gradleVersions = "0.46.0"
+gradleVersions = "0.48.0"
 html = "0.8.0"
-koin = "3.2.2"
-kotlin = "1.9.0"
+koin = "3.3.3"
+kotlin = "1.9.10"
 kover = "0.7.3"
-ktor = "2.3.2"
-serialization = "1.5.1"
-shadow = "8.1.0"
+ktor = "2.3.4"
+serialization = "1.6.0"
+shadow = "8.1.1"
 
 [libraries]
 androidx-compose-activity = "androidx.activity:activity-compose:1.7.2"
@@ -36,7 +36,7 @@ arrow-core = { module = "io.arrow-kt:arrow-core" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"
+datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.1"
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
@@ -73,8 +73,8 @@ ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor"
 ktor-server-sessions = { module = "io.ktor:ktor-server-sessions", version.ref = "ktor" }
 ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
 ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
-logback = "ch.qos.logback:logback-classic:1.4.4"
-postgres = "org.postgresql:postgresql:42.5.0"
+logback = "ch.qos.logback:logback-classic:1.4.11"
+postgres = "org.postgresql:postgresql:42.6.0"
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
