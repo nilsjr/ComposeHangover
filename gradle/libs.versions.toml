@@ -87,7 +87,7 @@ persistence = ["postgres", "h2", "hikari"]
 [plugins]
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersions" }
+gradle-versions = { id = "io.github.ben-manes.versions", version.ref = "gradleVersions" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 kotlin-java = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
